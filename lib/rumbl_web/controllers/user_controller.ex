@@ -1,4 +1,8 @@
 defmodule RumblWeb.UserController do
+  """
+    This is a module under th rumble_web
+    the use injects the rumbl web controller
+  """
   use RumblWeb, :controller
 
   alias Rumbl.Accounts
