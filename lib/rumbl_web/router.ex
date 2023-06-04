@@ -21,6 +21,7 @@ defmodule RumblWeb.Router do
     # the index action
     get "/users", UserController, :index
 
+    # the router will add :id and :show action to the conn
     get "/users/:id", UserController, :show
     get "/", PageController, :index
 
