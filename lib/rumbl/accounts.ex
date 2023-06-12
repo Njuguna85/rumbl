@@ -1,25 +1,31 @@
 defmodule Rumbl.Accounts do
   @moduledoc """
   The Accounts context.
+  This Accounts module is the public API our controllers should touch
+  but that doesn't mean all logic related to accounts should live here
   """
 
   alias Rumbl.Accounts.User
-
-  def list_users do
-    [
-      %User{id: "1", name: "José", username: "josevalim"},
-      %User{id: "2", name: "Bruce", username: "redrapids"},
-      %User{id: "3", name: "Chris", username: "chrismccord"}
-    ]
-  end
+  alias Rumbl.Repo
 
   def get_user(id) do
-    Enum.find(list_users(), fn map -> map.id == id end)
+    Repo.get(User, id)
+  end
+
+  # this raises an Ecto.NotFoundError when looking up a user that does not exist
+  def get_user!(id) do
+    Repo.get!(User, id)
   end
 
   def get_user_by(params) do
-    Enum.find(list_users(), fn map ->
-      Enum.all?(params, fn {key, val} -> Map.get(map, key) == val end)
-    end)
+    Repo.get_by(User, params)
+  end
+
+  def list_users do
+    Repo.all(User)
+  end
+
+  def change_user(%User{} = user) do
+    User.changeset(user, %{})
   end
 end

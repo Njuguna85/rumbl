@@ -16,11 +16,13 @@ defmodule RumblWeb.Router do
   scope "/", RumblWeb do
     pipe_through :browser
 
+    # show a list of users
     # the users route matches HTTP GET request to this url
     # and sends them to the user controller, calling
     # the index action
     get "/users", UserController, :index
 
+    # show a single user
     # the router will add :id and :show action to the conn
     get "/users/:id", UserController, :show
     get "/", PageController, :index

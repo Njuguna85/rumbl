@@ -1,14 +1,16 @@
 defmodule RumblWeb.UserController do
   """
-    This is a module under th rumble_web
+    This is a module under the rumble_web
     the use injects the rumbl web controller
   """
+
   use RumblWeb, :controller
 
   alias Rumbl.Accounts
+  alias Rumbl.Accounts.User
 
   def index(conn, _params) do
-    users =  Accounts.list_users()
+    users = Accounts.list_users()
     render(conn, "index.html", users: users)
   end
 
@@ -18,4 +20,9 @@ defmodule RumblWeb.UserController do
     render(conn, "show.html", user: user)
   end
 
+  def new(conn, _params) do
+    # this receives a struct and returns an Ecto.Changeset
+    changeset = Accounts.change_user(%User{})
+    render(conn, "new.html", changeset: changeset)
+  end
 end
