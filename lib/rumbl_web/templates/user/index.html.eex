@@ -4,9 +4,7 @@
 <%= for user <- @users do %>
    <tr>
 <td><%= render "user.html", user: user %></td>
-<%!-- create a link with the text of view, and a target automatically 
-   created for the :show route
- --%>
+
 <td><%= link "View", to: Routes.user_path(@conn, :show, user.id) %></td>
 </tr>
 <% end %> 
