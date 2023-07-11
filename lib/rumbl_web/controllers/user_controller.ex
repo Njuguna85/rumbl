@@ -5,7 +5,10 @@ defmodule RumblWeb.UserController do
   use RumblWeb, :controller
 
   alias Rumbl.Accounts
+
+  # restrict actions in list
   plug :authenticate when action in [:index, :show]
+
   alias Rumbl.Accounts.User
 
   def index(conn, _params) do
