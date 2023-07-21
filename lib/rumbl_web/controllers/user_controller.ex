@@ -7,7 +7,7 @@ defmodule RumblWeb.UserController do
   alias Rumbl.Accounts
 
   # restrict actions in list
-  plug :authenticate when action in [:index, :show]
+  plug :authenticate_user when action in [:index, :show]
 
   alias Rumbl.Accounts.User
 
@@ -41,17 +41,5 @@ defmodule RumblWeb.UserController do
     end
   end
 
-  defp authenticate(conn, _opts) do
-    # if there is a current user, return the connection unchanged
-    # otherwise, store a flash message and redirect back to our application root
-    # use halt(conn) to stop any downstream transformations
-    if conn.assigns.current_user do
-      conn
-    else
-      conn
-      |> put_flash(:error, "You must be logged in to access the page!")
-      |> redirect(to: Routes.page_path(conn, :index))
-      |> halt()
-    end
-  end
+
 end

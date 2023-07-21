@@ -14,6 +14,22 @@ defmodule RumblWeb.Auth do
     assign(conn, :current_user, user)
   end
 
+  import Phoenix.Controller
+  alias RumblWeb.Router.Helpers, as: Routes
+  def authenticate_user(conn, _opts) do
+    # if there is a current user, return the connection unchanged
+    # otherwise, store a flash message and redirect back to our application root
+    # use halt(conn) to stop any downstream transformations
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to access the page!")
+      |> redirect(to: Routes.page_path(conn, :index))
+      |> halt()
+    end
+  end
+
   def login(conn, user) do
     conn
     |> assign(:current_user, user)
@@ -24,5 +40,4 @@ defmodule RumblWeb.Auth do
   def logout(conn) do
     configure_session(conn, drop: true)
   end
-
 end
