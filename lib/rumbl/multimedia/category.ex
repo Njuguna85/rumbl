@@ -14,4 +14,11 @@ defmodule Rumbl.MultiMedia.Category do
     |> cast(attrs, [:name])
     |> validate_required([:name])
   end
+
+  import Ecto.Query
+
+  # receives and returns a queryable
+  def alphabetical(query) do
+    from c in query, order_by: c.name
+  end
 end
