@@ -1,4 +1,4 @@
-defmodule Rumbl.Multimedia.Video do
+defmodule Rumbl.MultiMedia.Video do
   use Ecto.Schema
   import Ecto.Changeset
 

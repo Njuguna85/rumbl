@@ -1,13 +1,13 @@
-defmodule Rumbl.Multimedia do
+defmodule Rumbl.MultiMedia do
   @moduledoc """
-  The Multimedia context.
+  The MultiMedia context.
   """
 
   import Ecto.Query, warn: false
   alias Rumbl.Repo
   alias Rumbl.Accounts
 
-  alias Rumbl.Multimedia.Video
+  alias Rumbl.MultiMedia.Video
 
   @doc """
   Returns the list of videos.

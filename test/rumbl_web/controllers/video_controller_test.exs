@@ -1,14 +1,14 @@
 defmodule RumblWeb.VideoControllerTest do
   use RumblWeb.ConnCase
 
-  alias Rumbl.Multimedia
+  alias Rumbl.MultiMedia
 
   @create_attrs %{description: "some description", title: "some title", url: "some url"}
   @update_attrs %{description: "some updated description", title: "some updated title", url: "some updated url"}
   @invalid_attrs %{description: nil, title: nil, url: nil}
 
   def fixture(:video) do
-    {:ok, video} = Multimedia.create_video(@create_attrs)
+    {:ok, video} = MultiMedia.create_video(@create_attrs)
     video
   end
 
