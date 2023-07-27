@@ -22,6 +22,14 @@ let Video = {
     let vidChannel = socket.channel("videos:" + videoId);
 
     // TODO: join the vidChannel
+    vidChannel
+      .join()
+      .receive("ok", (resp) => {
+        console.log("Joined successfully", resp);
+      })
+      .receive("error", (resp) => {
+        console.log("Unable to join", resp);
+      });
   },
 };
 

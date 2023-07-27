@@ -20,7 +20,8 @@ import Player from "./player";
 let video = document.getElementById("video");
 
 if (video) {
-  Player.init("video", "player", (event) => {
+  Player.init(video.id, video.getAttribute("data-player-id"), () => {
+    console.log("Player ready");
     video.play();
   });
 }
