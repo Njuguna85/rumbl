@@ -36,8 +36,8 @@ let Video = {
     // Join the vidChannel
     vidChannel
       .join()
-      .receive("ok", (resp) => {
-        console.log("Joined successfully", resp);
+      .receive("ok", ({ annotations }) => {
+        annotations.forEach((ann) => this.renderAnnotation(msgContainer, ann));
       })
       .receive("error", (resp) => {
         console.log("Unable to join", resp);
