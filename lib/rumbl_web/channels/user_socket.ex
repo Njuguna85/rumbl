@@ -17,9 +17,15 @@ defmodule RumblWeb.UserSocket do
   # performing token verification on connect.
   channel "videos:*", RumblWeb.VideoChannel
 
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  @max_age 2 * 7 * 24 * 60 * 60
+  def connect(%{"token" => token}, socket, _connect_info) do
+    case Phoenix.Token.verify(socket, "User Socket", token, max_age: @max_age) do
+      {:ok, user_id} -> {:ok, assign(socket, :user_id, user_id)}
+      {:error, _reason} -> :error
+    end
   end
+
+  def connect(_params, _socket, _connect_info), do: :error
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
@@ -31,5 +37,5 @@ defmodule RumblWeb.UserSocket do
   #     RumblWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  def id(_socket), do: nil
+  def id(socket), do: "users_socket:#{socket.assigns.user_id}"
 end
