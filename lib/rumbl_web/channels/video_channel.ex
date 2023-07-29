@@ -9,13 +9,14 @@ defmodule RumblWeb.VideoChannel do
   # all elements in the enumerable passed to it.
   # the view is used to present data thus offloading the work
   # to the view layer so the channel layer can focus on messaging
-  def join("videos:" <> video_id, _params, socket) do
+  def join("videos:" <> video_id, params, socket) do
+    last_seen_id = params["last_seen_id"] || 0
     video_id = String.to_integer(video_id)
     video = MultiMedia.get_video!(video_id)
 
     annotations =
       video
-      |> MultiMedia.list_annotations()
+      |> MultiMedia.list_annotations(last_seen_id)
       |> Phoenix.View.render_many(AnnotationView, "annotation.json")
 
     {:ok, %{annotations: annotations}, assign(socket, :video_id, video_id)}

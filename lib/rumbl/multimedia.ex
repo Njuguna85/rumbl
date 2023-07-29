@@ -146,9 +146,10 @@ defmodule Rumbl.MultiMedia do
 
   # accepts a video struct, fetch all annotations associated with the video
   # eagerly load the associated user for each annotation
-  def list_annotations(%Video{} = video) do
+  def list_annotations(%Video{} = video, since_id \\ 0) do
     Repo.all(
       from a in Ecto.assoc(video, :annotations),
+        where: a.id > ^since_id,
         order_by: [asc: a.at, asc: a.id],
         limit: 500,
         preload: [:user]
